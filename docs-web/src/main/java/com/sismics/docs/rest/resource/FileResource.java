@@ -266,6 +266,11 @@ public class FileResource extends BaseResource {
         if (file == null) {
             throw new NotFoundException();
         }
+        DocumentDao documentDao = new DocumentDao();
+        DocumentDto documentDto = documentDao.getDocument(file.getDocumentId(), PermType.WRITE, getTargetIdList(null));
+	if (documentDto == null) {
+	     throw new NotFoundException();
+	}
 
         // Check that the file is orphan
         if (file.getDocumentId() != null) {
@@ -276,7 +281,7 @@ public class FileResource extends BaseResource {
         //file.setDocumentId(documentId);
         //file.setOrder(fileDao.getByDocumentId(principal.getId(), documentId).size());
 
-        FileUtil.duplicateFile(id, user.getId());
+        FileUtil.duplicateFile(id, user.getId(), documentDto.getLanguage());
 
         // Raise a new file duplicated event and document updated event (it wasn't sent during file creation)
         try {
