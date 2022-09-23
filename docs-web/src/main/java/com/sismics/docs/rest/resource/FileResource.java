@@ -273,9 +273,9 @@ public class FileResource extends BaseResource {
 	}
 
         // Check that the file is orphan
-        if (file.getDocumentId() != null) {
-            throw new ClientException("IllegalFile", MessageFormat.format("File not orphan: {0}", id));
-        }
+        // if (file.getDocumentId() != null) {
+        //     throw new ClientException("IllegalFile", MessageFormat.format("File not orphan: {0}", id));
+        // }
 
         // Duplicate the file
         //file.setDocumentId(documentId);
