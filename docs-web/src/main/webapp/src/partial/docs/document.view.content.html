@@ -126,6 +126,13 @@
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
+                  <a href ng-click="duplicateFile(file)">
+                    <span class="fas fa-copy"></span>
+                    {{ 'Duplicate file' | translate }}
+                  </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
                   <a href ng-click="deleteFile(file)">
                     <span class="fas fa-trash text-danger"></span>
                     {{ 'delete' | translate }}
@@ -214,6 +221,13 @@
               <a href ng-click="openVersions(file)">
                 <span class="fas fa-angle-double-left"></span>
                 {{ 'document.view.content.open_versions' | translate }}
+              </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <a href ng-click="duplicateFile(file)">
+                <span class="fas fa-copy"></span>
+                {{ 'Duplicate file' | translate }}
               </a>
             </li>
             <li role="separator" class="divider"></li>
