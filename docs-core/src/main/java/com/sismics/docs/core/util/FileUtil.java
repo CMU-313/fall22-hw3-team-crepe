@@ -212,6 +212,41 @@ public class FileUtil {
     }
 
     /**
+     * Duplicate a file.
+     *
+     * @param fileId File ID duplicated
+     * @param userId User ID creating the file
+     * @return File ID
+     * @throws Exception e
+     */
+    public static String duplicateFile(String fileId, String userId, String language) throws Exception {
+        // Get file
+        FileDao fileDao = new FileDao();
+        File oldFile = fileDao.getFile(fileId, userId);
+        if (oldFile == null){
+            throw new IOException("FileNotFound");
+        }
+        
+        // Get file creator
+        UserDao userDao = new UserDao();
+        User user = userDao.getById(oldFile.getUserId());
+
+        // Get document id
+        String documentId = oldFile.getDocumentId();
+
+        // Unencrypt file 
+        Path oldPath = DirectoryUtil.getStorageDirectory().resolve(fileId);
+        Path unencryptedFile = com.sismics.docs.core.util.EncryptionUtil.decryptFile(oldPath, user.getPrivateKey());
+
+        // Get file size
+        long fileSize = Files.size(unencryptedFile);
+
+        // Create duplicated file
+        String newFile = createFile("Copy of " + oldFile.getName(), null, unencryptedFile, fileSize, language, userId, documentId);
+        return newFile;
+    }
+
+    /**
      * Start processing a file.
      *
      * @param fileId File ID
