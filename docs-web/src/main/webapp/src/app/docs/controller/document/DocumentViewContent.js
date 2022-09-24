@@ -210,6 +210,15 @@ angular.module('docs').controller('DocumentViewContent', function ($scope, $root
   };
 
   /**
+   * duplicate a file
+   */
+   $scope.duplicateFile = function(file) {
+    Restangular.one('file/' + file.id + "/duplicate").post('', {
+      id: $scope.document.id
+    }).then(function(){$scope.loadFiles()})
+  };
+  
+  /**
    * Open versions history.
    */
   $scope.openVersions = function (file) {

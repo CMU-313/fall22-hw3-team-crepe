@@ -221,6 +221,94 @@ public class FileResource extends BaseResource {
                 .add("status", "ok");
         return Response.ok().entity(response.build()).build();
     }
+    
+    /**
+     * Duplicate file to a document.
+     *
+     * @api {post} /file/:fileId/duplicate Duplicate a file to a document
+     * @apiName PostFileDuplicate
+     * @apiGroup File
+     * @apiParam {String} fileId File ID
+     * @apiParam {String} id Document ID
+     * @apiSuccess {String} status Status OK
+     * @apiError (client) ForbiddenError Access denied
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) IllegalFile File not orphan
+     * @apiError (server) AttachError Error attaching file to document
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @param id File ID
+     * @return Response
+     * @throws Exception
+     */
+    @POST
+    @Path("{id: [a-z0-9\\-]+}/duplicate")
+    public Response duplicate(
+            @PathParam("id") String id,
+            @FormParam("id") String documentId) throws Exception {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+
+        // Validate input data
+        ValidationUtil.validateRequired(documentId, "documentId");
+
+        // Get the current user
+        UserDao userDao = new UserDao();
+        User user = userDao.getById(principal.getId());
+
+        // Get the document and the file
+        //DocumentDao documentDao = new DocumentDao();
+        FileDao fileDao = new FileDao();
+        File file = fileDao.getFile(id, principal.getId());
+        //DocumentDto documentDto = documentDao.getDocument(documentId, PermType.WRITE, getTargetIdList(null));
+        if (file == null) {
+            throw new NotFoundException();
+        }
+        DocumentDao documentDao = new DocumentDao();
+        DocumentDto documentDto = documentDao.getDocument(file.getDocumentId(), PermType.WRITE, getTargetIdList(null));
+	if (documentDto == null) {
+	     throw new NotFoundException();
+	}
+
+        // Check that the file is orphan
+        // if (file.getDocumentId() != null) {
+        //     throw new ClientException("IllegalFile", MessageFormat.format("File not orphan: {0}", id));
+        // }
+
+        // Duplicate the file
+        //file.setDocumentId(documentId);
+        //file.setOrder(fileDao.getByDocumentId(principal.getId(), documentId).size());
+
+        FileUtil.duplicateFile(id, user.getId(), documentDto.getLanguage());
+
+        // Raise a new file duplicated event and document updated event (it wasn't sent during file creation)
+        try {
+            java.nio.file.Path storedFile = DirectoryUtil.getStorageDirectory().resolve(id);
+            java.nio.file.Path unencryptedFile = EncryptionUtil.decryptFile(storedFile, user.getPrivateKey());
+            FileUtil.startProcessingFile(id);
+            FileUpdatedAsyncEvent fileUpdatedAsyncEvent = new FileUpdatedAsyncEvent();
+            fileUpdatedAsyncEvent.setUserId(principal.getId());
+            //fileUpdatedAsyncEvent.setLanguage(documentDto.getLanguage());
+            fileUpdatedAsyncEvent.setFileId(file.getId());
+            fileUpdatedAsyncEvent.setUnencryptedFile(unencryptedFile);
+            ThreadLocalContext.get().addAsyncEvent(fileUpdatedAsyncEvent);
+
+            //DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+            //documentUpdatedAsyncEvent.setUserId(principal.getId());
+            //documentUpdatedAsyncEvent.setDocumentId(documentId);
+            //ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        } catch (Exception e) {
+            throw new ServerException("AttachError", "Error attaching file to document", e);
+        }
+
+        // Always return OK
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("status", "ok");
+        return Response.ok().entity(response.build()).build();
+    }
+
 
     /**
      * Update a file.
