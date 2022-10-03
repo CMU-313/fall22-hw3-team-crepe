@@ -133,6 +133,27 @@
 
       <p class="page-header page-header-side">
         <span class="fas fa-comments"></span>
+        {{ 'Rating' | translate }}
+      </p>
+
+      <form id="ratingform">
+        <label for="skills">Skills:</label>
+        <input type="number" id="skills" min="0" max="5">
+        <br>
+        <label for="exp">Experience:</label>
+        <input type="number" id="exp" min="0" max="5">
+        <br>
+        <label for="gpa">GPA:</label>
+        <input type="number" id="gpa" min="0" max="5">
+        <br>
+        <label for="scores">Test Scores:</label>
+        <input type="number" id="scores" min="0" max="5">
+        <br>
+        <input type="submit">
+      </form>
+
+      <p class="page-header page-header-side">
+        <span class="fas fa-comments"></span>
         {{ 'document.view.comments' | translate }}
       </p>
 
