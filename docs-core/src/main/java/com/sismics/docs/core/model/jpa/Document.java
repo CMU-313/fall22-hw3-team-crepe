@@ -48,10 +48,10 @@ public class Document implements Loggable {
     private String title;
     
     /**
-     * Skill.
+     * Skills.
      */
-    @Column(name = "DOC_SKILL_C")
-    private int skill;
+    @Column(name = "DOC_SKILLS_C")
+    private int skills;
 
     /**
      * Experience.
@@ -66,10 +66,10 @@ public class Document implements Loggable {
     private int gpa;
     
     /**
-     * Score.
+     * Scores.
      */
-    @Column(name = "DOC_SCORE_C")
-    private int score;
+    @Column(name = "DOC_SCORES_C")
+    private int scores;
     
     /**
      * Description.
@@ -184,12 +184,12 @@ public class Document implements Loggable {
         this.title = title;
     }
 
-    public int getSkill() {
-        return skill;
+    public int getSkills() {
+        return skills;
     }
 
-    public void setSkill(int skill) {
-        this.skill = skill;
+    public void setSkills(int skills) {
+        this.skills = skills;
     }
 
     public int getExperience() {
@@ -208,12 +208,12 @@ public class Document implements Loggable {
         this.gpa = gpa;
     }
 
-    public int getScore() {
-        return score;
+    public int getScores() {
+        return scores;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScores(int scores) {
+        this.scores = scores;
     }
 
     public String getDescription() {
