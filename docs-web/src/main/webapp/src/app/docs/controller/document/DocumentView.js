@@ -11,14 +11,26 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
     $scope.error = response;
   });
 
-  // Submit ratings
-  $scope.submitRatings = function (ratings) {
-    console.log("called submit ratings");
+  // Load ratings from server
+  Restangular.one('rating', $stateParams.id).get().then(function (ratings){
     $scope.skills = ratings.skills;
     $scope.experience = ratings.experience;
     $scope.gpa = ratings.gpa;
     $scope.scores = ratings.scores;
-    console.log($scope.scores);
+  }, function(response){
+    $scope.ratingsError = response;
+  });
+  
+  // Submit ratings
+  $scope.submitRatings = function () {
+    console.log("called submit ratings");
+    Restangular.one('rating').put({
+      id: $stateParams.id, 
+      content: $scope.ratings
+    }).then(function(ratings){
+      $scope.rating = '';
+      $scope.comments.push(ratings);
+    });
   };
 
   // Load comments from server
