@@ -130,7 +130,7 @@
           </p>
         </div>
       </div>
-      \\class="page-header page-header-side"
+      
       <div class="card">
         <p>
           <span class="fas fa-star"></span>
@@ -141,7 +141,7 @@
           {{ 'Applicant Rating' | translate }}
           
         </p>
-        <form id="ratingform">
+        <form id="ratingform" #ratingForm = "ngForm" (ngSubmit) = "submitRatings(ratingForm.value)">
           <p>
             <label for="skills">Skills:</label>
             <input type="number" id="skills" name="skills" min="1" max="5" ngModel>
