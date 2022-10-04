@@ -173,7 +173,10 @@ public class DocumentResource extends BaseResource {
                 .add("update_date", documentDto.getUpdateTimestamp())
                 .add("language", documentDto.getLanguage())
                 .add("shared", documentDto.getShared())
-                .add("file_count", documentDto.getFileCount());
+                .add("file_count", documentDto.getFileCount())
+                .add("experience", documentDto.getExperience())
+                .add("gpa", documentDto.getGpa())
+                .add("scores", documentDto.getScores());
 
         List<TagDto> tagDtoList = null;
         if (principal.isAnonymous()) {
@@ -280,6 +283,8 @@ public class DocumentResource extends BaseResource {
 
         return Response.ok().entity(document.build()).build();
     }
+
+
     
     /**
      * Export a document to PDF.
@@ -466,7 +471,10 @@ public class DocumentResource extends BaseResource {
                     .add("active_route", documentDto.isActiveRoute())
                     .add("current_step_name", JsonUtil.nullable(documentDto.getCurrentStepName()))
                     .add("file_count", documentDto.getFileCount())
-                    .add("tags", tags);
+                    .add("tags", tags)
+                    .add("experience", documentDto.getExperience())
+                    .add("gpa", documentDto.getGpa())
+                    .add("scores", documentDto.getScores());
             if (Boolean.TRUE == files) {
                 JsonArrayBuilder filesArrayBuilder = Json.createArrayBuilder();
                 // Find files matching the document
@@ -715,6 +723,9 @@ public class DocumentResource extends BaseResource {
      * @param metadataValueList Metadata value list
      * @param language Language
      * @param createDateStr Creation date
+     * @param experience
+     * @param gpa
+     * @param scores
      * @return Response
      */
     @PUT
@@ -734,7 +745,11 @@ public class DocumentResource extends BaseResource {
             @FormParam("metadata_id") List<String> metadataIdList,
             @FormParam("metadata_value") List<String> metadataValueList,
             @FormParam("language") String language,
-            @FormParam("create_date") String createDateStr) {
+            @FormParam("create_date") String createDateStr,
+            @FormParam("experience") String experience,
+            @FormParam("gpa") String gpa,
+            @FormParam("scores") String scores
+            ) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
         }
@@ -770,6 +785,9 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
+        document.setExperience(experience);
+        document.setGpa(gpa);
+        document.setScores(scores);
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
@@ -856,7 +874,10 @@ public class DocumentResource extends BaseResource {
             @FormParam("metadata_id") List<String> metadataIdList,
             @FormParam("metadata_value") List<String> metadataValueList,
             @FormParam("language") String language,
-            @FormParam("create_date") String createDateStr) {
+            @FormParam("create_date") String createDateStr,
+            @FormParam("experience") String experience,
+            @FormParam("gpa") String gpa,
+            @FormParam("scores") String scores) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
         }
@@ -903,6 +924,9 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
+        document.setExperience(experience);
+        document.setGpa(gpa);
+        document.setScores(scores);
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
