@@ -11,6 +11,16 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
     $scope.error = response;
   });
 
+  // Submit ratings
+  $scope.submitRatings = function (ratings) {
+    console.log("called submit ratings");
+    $scope.skills = ratings.skills;
+    $scope.experience = ratings.experience;
+    $scope.gpa = ratings.gpa;
+    $scope.scores = ratings.scores;
+    console.log($scope.scores);
+  };
+
   // Load comments from server
   Restangular.one('comment', $stateParams.id).get().then(function (data) {
     $scope.comments = data.comments;
@@ -23,6 +33,7 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
    */
   $scope.comment = '';
   $scope.addComment = function () {
+    console.log("Hi");
     if ($scope.comment.length === 0) {
       return;
     }
