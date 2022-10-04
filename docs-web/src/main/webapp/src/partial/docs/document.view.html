@@ -137,22 +137,22 @@
           {{ 'Applicant Rating' | translate }}
         </p>
 
-        <form id="ratingform">
+        <form id="ratingform" #ratingForm = "ngForm" (ngSubmit) = "submitRatings(ratingForm.value)">
           <p>
             <label for="skills">Skills:</label>
-            <input type="number" id="skills" min="1" max="5">
+            <input type="number" id="skills" name="skills" min="1" max="5" ngModel>
           </p>
           <p>
-            <label for="exp">Experience:</label>
-            <input type="number" id="exp" min="1" max="5">
+            <label for="experience">Experience:</label>
+            <input type="number" id="experience" name="experience" min="1" max="5" ngModel>
           </p>
           <p>
             <label for="gpa">GPA:</label>
-            <input type="number" id="gpa" min="1" max="5">
+            <input type="number" id="gpa" name="gpa" min="1" max="5" ngModel>
           </p>
           <p>
             <label for="scores">Test Scores:</label>
-            <input type="number" id="scores" min="1" max="5">
+            <input type="number" id="scores" name="scores" min="1" max="5" ngModel>
           </p>
           <input type="submit">
         </form>
@@ -170,7 +170,6 @@
           <p ng-show="comments.length == 0">{{ 'document.view.no_comments' | translate }}</p>
           <p ng-show="!comments && commentsError">{{ 'document.view.error_loading_comments' | translate }}</p>
         </div>
-
       
         <div ng-repeat="comment in comments" class="media" style="overflow: hidden">
           <div class="pull-left">
