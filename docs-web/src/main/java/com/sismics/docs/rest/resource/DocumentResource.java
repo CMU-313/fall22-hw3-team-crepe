@@ -745,10 +745,7 @@ public class DocumentResource extends BaseResource {
             @FormParam("metadata_id") List<String> metadataIdList,
             @FormParam("metadata_value") List<String> metadataValueList,
             @FormParam("language") String language,
-            @FormParam("create_date") String createDateStr,
-            @FormParam("experience") String experience,
-            @FormParam("gpa") String gpa,
-            @FormParam("scores") String scores
+            @FormParam("create_date") String createDateStr
             ) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
@@ -785,9 +782,9 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
-        document.setExperience(experience);
-        document.setGpa(gpa);
-        document.setScores(scores);
+        document.setExperience(0);
+        document.setGpa(0);
+        document.setScores(0);
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
@@ -874,10 +871,7 @@ public class DocumentResource extends BaseResource {
             @FormParam("metadata_id") List<String> metadataIdList,
             @FormParam("metadata_value") List<String> metadataValueList,
             @FormParam("language") String language,
-            @FormParam("create_date") String createDateStr,
-            @FormParam("experience") String experience,
-            @FormParam("gpa") String gpa,
-            @FormParam("scores") String scores) {
+            @FormParam("create_date") String createDateStr) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
         }
@@ -924,9 +918,9 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
-        document.setExperience(experience);
-        document.setGpa(gpa);
-        document.setScores(scores);
+        document.setExperience(0);
+        document.setGpa(0);
+        document.setScores(0);
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
