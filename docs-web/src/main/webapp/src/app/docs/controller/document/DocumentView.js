@@ -12,7 +12,7 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
   });
 
   // Load ratings from server
-  Restangular.one('rating', $stateParams.id).get().then(function (ratings){
+  Restangular.one('ratings', $stateParams.id).get().then(function (ratings){
     $scope.skills = ratings.skills;
     $scope.experience = ratings.experience;
     $scope.gpa = ratings.gpa;
@@ -24,7 +24,7 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
   // Submit ratings
   $scope.submitRatings = function () {
     console.log("called submit ratings");
-    Restangular.one('rating').put({
+    Restangular.one('document/' + $scope.document.id + "/ratings").post({
       id: $stateParams.id, 
       content: $scope.ratings
     }).then(function(ratings){
