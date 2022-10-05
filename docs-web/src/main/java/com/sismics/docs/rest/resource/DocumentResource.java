@@ -979,7 +979,7 @@ public class DocumentResource extends BaseResource {
             @FormParam("skills") String skills,
             @FormParam("exp") String exp,
             @FormParam("gpa") String gpa,
-            @FormParam("scores") String scores,
+            @FormParam("scores") String scores) {
         if (!authenticate()) {
             throw new ForbiddenClientException();
         }
