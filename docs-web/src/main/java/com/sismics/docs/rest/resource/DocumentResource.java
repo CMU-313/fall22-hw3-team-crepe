@@ -918,9 +918,6 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
-        document.setExperience(0);
-        document.setGpa(0);
-        document.setScores(0);
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
@@ -942,6 +939,78 @@ public class DocumentResource extends BaseResource {
             throw new ClientException("ValidationError", e.getMessage());
         }
 
+        // Raise a document updated event
+        DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
+        documentUpdatedAsyncEvent.setUserId(principal.getId());
+        documentUpdatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentUpdatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
+
+    /**
+     * Updates the document's ratings.
+     *
+     * @api {post} /document/:id/ratings Update a document's ratings
+     * @apiName PostDocumentRating
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiParam {Number} skills
+     * @apiParam {Number} experience
+     * @apiParam {Number} GPA
+     * @apiParam {Number} scores
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @param title Title
+     * @param description Description
+     * @return Response
+     */
+    @POST
+    @Path("{id: [a-z0-9\\-]+}/ratings")
+    public Response updateRatings(
+            @PathParam("id") String id,
+            @FormParam("skills") String skills,
+            @FormParam("exp") String exp,
+            @FormParam("gpa") String gpa,
+            @FormParam("scores") String scores,
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Validate input data
+        skills = ValidationUtil.validateLength(skills, "skills", 1, 1, false);
+        exp = ValidationUtil.validateLength(exp, "exp", 1, 1, false);
+        gpa = ValidationUtil.validateLength(gpa, "gpa", 1, 1, false);
+        scores = ValidationUtil.validateLength(scores, "scores", 1, 1, false);
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document
+        document.setExperience(Integer.parseInt(exp));
+        document.setGpa(Integer.parseInt(gpa));
+        document.setSkills(Integer.parseInt(skills));
+        document.setScores(Integer.parseInt(scores));
+        
+        documentDao.update(document, principal.getId());
+        
         // Raise a document updated event
         DocumentUpdatedAsyncEvent documentUpdatedAsyncEvent = new DocumentUpdatedAsyncEvent();
         documentUpdatedAsyncEvent.setUserId(principal.getId());
