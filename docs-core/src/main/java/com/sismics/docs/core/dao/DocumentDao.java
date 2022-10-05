@@ -127,6 +127,9 @@ public class DocumentDao {
         documentDto.setLanguage((String) o[i++]);
         documentDto.setShared(((Number) o[i++]).intValue() > 0);
         documentDto.setFileCount(((Number) o[i++]).intValue());
+        documentDto.setExperience((int) o[i++]);
+        documentDto.setGpa((int) o[i++]);
+        documentDto.setScores((int) o[i++]);
         documentDto.setCreator((String) o[i]);
         return documentDto;
     }
@@ -225,6 +228,9 @@ public class DocumentDao {
         documentDb.setLanguage(document.getLanguage());
         documentDb.setFileId(document.getFileId());
         documentDb.setUpdateDate(new Date());
+        documentDb.setExperience(document.getExperience());
+        documentDb.setGpa(document.getGpa());
+        documentDb.setScores(document.getScores());
         
         // Create audit log
         AuditLogUtil.create(documentDb, AuditLogType.UPDATE, userId);
