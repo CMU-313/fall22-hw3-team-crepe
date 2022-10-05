@@ -48,6 +48,30 @@ public class Document implements Loggable {
     private String title;
     
     /**
+     * Skills.
+     */
+    @Column(name = "DOC_SKILLS_C")
+    private int skills;
+
+    /**
+     * Experience.
+     */
+    @Column(name = "DOC_EXPERIENCE_C")
+    private int experience;
+    
+    /**
+     * GPA.
+     */
+    @Column(name = "DOC_GPA_C")
+    private int gpa;
+    
+    /**
+     * Scores.
+     */
+    @Column(name = "DOC_SCORES_C")
+    private int scores;
+    
+    /**
      * Description.
      */
     @Column(name = "DOC_DESCRIPTION_C", length = 4000)
@@ -158,6 +182,38 @@ public class Document implements Loggable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getSkills() {
+        return skills;
+    }
+
+    public void setSkills(int skills) {
+        this.skills = skills;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(int gpa) {
+        this.gpa = gpa;
+    }
+
+    public int getScores() {
+        return scores;
+    }
+
+    public void setScores(int scores) {
+        this.scores = scores;
     }
 
     public String getDescription() {
