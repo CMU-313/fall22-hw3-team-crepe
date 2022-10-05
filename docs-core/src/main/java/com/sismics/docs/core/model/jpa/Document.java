@@ -324,25 +324,4 @@ public class Document implements Loggable {
     public String toMessage() {
         return title;
     }
-
-    public Object getExperience() {
-        return null;
-    }
-
-    public void setExperience(Object experience) {
-    }
-
-    public Object getGpa() {
-        return null;
-    }
-
-    public void setGpa(Object gpa) {
-    }
-
-    public Object getScores() {
-        return null;
-    }
-
-    public void setScores(Object scores) {
-    }
 }

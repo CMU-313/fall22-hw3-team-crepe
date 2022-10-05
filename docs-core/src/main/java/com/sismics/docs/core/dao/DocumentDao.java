@@ -126,10 +126,6 @@ public class DocumentDao {
         documentDto.setUpdateTimestamp(((Timestamp) o[i++]).getTime());
         documentDto.setLanguage((String) o[i++]);
         documentDto.setShared(((Number) o[i++]).intValue() > 0);
-        documentDto.setFileCount(((Number) o[i++]).intValue());
-        documentDto.setExperience((int) o[i++]);
-        documentDto.setGpa((int) o[i++]);
-        documentDto.setScores((int) o[i++]);
         documentDto.setCreator((String) o[i]);
         return documentDto;
     }
