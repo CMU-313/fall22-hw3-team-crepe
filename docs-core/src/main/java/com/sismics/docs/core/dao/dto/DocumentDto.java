@@ -24,6 +24,26 @@ public class DocumentDto {
     private String title;
     
     /**
+     * Skills.
+     */
+    private int skills;
+
+    /**
+     * Experience.
+     */
+    private int experience;
+
+    /**
+     * GPA.
+     */
+    private int gpa;
+
+    /**
+     * Scores.
+     */
+    private int scores;
+
+    /**
      * Description.
      */
     private String description;
@@ -136,6 +156,38 @@ public class DocumentDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getSkills() {
+        return skills;
+    }
+
+    public void setSkills(int skills) {
+        this.skills = skills;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(int gpa) {
+        this.gpa = gpa;
+    }
+
+    public int getScores() {
+        return scores;
+    }
+
+    public void setScores(int scores) {
+        this.scores = scores;
     }
 
     public String getDescription() {
