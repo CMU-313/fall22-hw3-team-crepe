@@ -12,11 +12,13 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
   });
 
   // Load ratings from server
-  Restangular.one('ratings', $stateParams.id).get().then(function (ratings){
+  Restangular.one('document/', $scope.document.id).get().then(function (ratings){
     $scope.skills = ratings.skills;
     $scope.experience = ratings.experience;
     $scope.gpa = ratings.gpa;
     $scope.scores = ratings.scores;
+    $scope.avg = 45;
+    //($scope.skills + $scope.experience + $scope.gpa + $scope.scores) / 4;
   }, function(response){
     $scope.ratingsError = response;
   });
