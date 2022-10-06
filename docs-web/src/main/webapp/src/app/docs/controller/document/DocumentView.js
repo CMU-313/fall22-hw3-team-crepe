@@ -24,12 +24,12 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
   // Submit ratings
   $scope.submitRatings = function () {
     console.log("called submit ratings");
-    Restangular.one('document/' + $scope.document.id + "/ratings").post({
-      id: $stateParams.id, 
-      content: $scope.ratings
-    }).then(function(ratings){
-      $scope.rating = '';
-      $scope.comments.push(ratings);
+    Restangular.one('document/' + $scope.document.id + "/ratings").post('', {
+      id: $scope.document.id, 
+      skills: $scope.skills,
+      exp: $scope.exp,
+      gpa: $scope.gpa,
+      scores: $scope.scores
     });
   };
 
