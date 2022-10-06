@@ -336,24 +336,4 @@ public class DocumentDto {
         return this;
     }
 
-    public JsonValue getExperience() {
-        return null;
-    }
-
-    public JsonValue getGpa() {
-        return null;
-    }
-
-    public JsonValue getScores() {
-        return null;
-    }
-
-    public void setExperience(int o) {
-    }
-
-    public void setGpa(int o) {
-    }
-
-    public void setScores(int o) {
-    }
 }
