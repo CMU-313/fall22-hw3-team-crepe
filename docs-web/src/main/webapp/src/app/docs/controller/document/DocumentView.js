@@ -17,8 +17,6 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
     $scope.exp = ratings.experience;
     $scope.gpa = ratings.gpa;
     $scope.scores = ratings.scores;
-    $scope.avg = 45;
-    //($scope.skills + $scope.experience + $scope.gpa + $scope.scores) / 4;
   }, function(response){
     $scope.ratingsError = response;
   });

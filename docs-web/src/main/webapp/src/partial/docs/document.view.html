@@ -132,14 +132,9 @@
       </div>
       
       <div class="card">
-        <p>
-          <span class="fas fa-star"></span>
-          {{ 'Average Rating: ' | translate }}
-        </p>
         <p class="page-header page-header-side">
           <span class="fas fa-comments"></span>
           {{ 'Applicant Rating' | translate }}
-          
         </p>
         <form id="ratingform" #ratingForm = "ngForm"  ng-submit = "submitRatings(ratingForm.value)">
           <p>
@@ -160,6 +155,14 @@
           </p>
           <input type="submit">
         </form>
+      </div>
+
+      <div class = "card">
+        <p class="page-header page-header-side">
+        <span class="fas fa-star"></span>
+        {{ 'Average Rating: ' | translate }}
+        {{(skills + exp + gpa + scores)/4}}
+      </p>
       </div>
       
       <div class="card">
