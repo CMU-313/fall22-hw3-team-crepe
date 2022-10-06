@@ -62,5 +62,19 @@ public class TestJpa extends BaseTransactionalTest {
         Assert.assertEquals(0, document.getExperience());
         Assert.assertEquals(0, document.getGpa());
         Assert.assertEquals(0, document.getScores());
+        
+        document.setSkills(1);
+        document.setExperience(2);
+        document.setGpa(3);
+        document.setScores(4);
+        
+        documentDao.update(document, id);
+        
+        document = documentDao.getById(documentId);
+        Assert.assertNotNull(document);
+        Assert.assertEquals(1, document.getSkills());
+        Assert.assertEquals(2, document.getExperience());
+        Assert.assertEquals(3, document.getGpa());
+        Assert.assertEquals(4, document.getScores());
     }
 }
