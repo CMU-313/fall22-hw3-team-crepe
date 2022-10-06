@@ -4,6 +4,7 @@ on:
   push:
     branches: 
       - 'main'
+      - 'ratings-form-feature'
     tags: [v*]
   workflow_dispatch:
 
