@@ -233,6 +233,10 @@ public class TestDocumentResource extends BaseJerseyTest {
         json = target().path("/document/" + document1Id).request()
                 .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
                 .get(JsonObject.class);
+        Assert.assertEquals(0, json.getInt("skills"));
+        Assert.assertEquals(0, json.getInt("gpa"));
+        Assert.assertEquals(0, json.getInt("experience"));
+        Assert.assertEquals(0, json.getInt("scores"));
         Assert.assertEquals(document1Id, json.getString("id"));
         Assert.assertEquals("document1", json.getString("creator"));
         Assert.assertEquals(1, json.getInt("file_count"));
@@ -270,6 +274,10 @@ public class TestDocumentResource extends BaseJerseyTest {
                 .get(JsonObject.class);
         Assert.assertEquals(document2Id, json.getString("id"));
         relations = json.getJsonArray("relations");
+        Assert.assertEquals(0, json.getInt("skills"));
+        Assert.assertEquals(0, json.getInt("gpa"));
+        Assert.assertEquals(0, json.getInt("experience"));
+        Assert.assertEquals(0, json.getInt("scores"));
         Assert.assertEquals(1, relations.size());
         Assert.assertEquals(document1Id, relations.getJsonObject(0).getString("id"));
         Assert.assertTrue(relations.getJsonObject(0).getBoolean("source"));
@@ -301,6 +309,22 @@ public class TestDocumentResource extends BaseJerseyTest {
                         .param("tags", tag3Id)), JsonObject.class);
         Assert.assertEquals(document1Id, json.getString("id"));
         
+        // Update document 1 ratings
+        json = target().path("/document/" + document1Id + "/ratings").request()
+                .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
+                .post(Entity.form(new Form()
+                        .param("skills", "4")
+                        .param("exp", "3")
+                        .param("gpa", "1")
+                        .param("scores", "2")), JsonObject.class);
+        json = target().path("/document/" + document1Id).request()
+                .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
+                .get(JsonObject.class);
+        Assert.assertEquals(4, json.getInt("skills"));
+        Assert.assertEquals(1, json.getInt("gpa"));
+        Assert.assertEquals(3, json.getInt("experience"));
+        Assert.assertEquals(2, json.getInt("scores"));
+
         // Update document 2
         json = target().path("/document/" + document2Id).request()
                 .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
@@ -308,6 +332,22 @@ public class TestDocumentResource extends BaseJerseyTest {
                         .param("title", "My super title document 2")
                         .param("language", "eng")), JsonObject.class);
         Assert.assertEquals(document2Id, json.getString("id"));
+
+        // Update document 2 ratings
+        json = target().path("/document/" + document2Id + "/ratings").request()
+                .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
+                .post(Entity.form(new Form()
+                        .param("skills", "5")
+                        .param("exp", "5")
+                        .param("gpa", "4")
+                        .param("scores", "5")), JsonObject.class);
+        json = target().path("/document/" + document2Id).request()
+                .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
+                .get(JsonObject.class);
+        Assert.assertEquals(5, json.getInt("skills"));
+        Assert.assertEquals(4, json.getInt("gpa"));
+        Assert.assertEquals(5, json.getInt("experience"));
+        Assert.assertEquals(5, json.getInt("scores"));
 
         // Export a document in PDF format
         Response response = target().path("/document/" + document1Id + "/pdf")

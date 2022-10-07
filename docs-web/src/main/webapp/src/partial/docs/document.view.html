@@ -130,43 +130,79 @@
           </p>
         </div>
       </div>
-
-      <p class="page-header page-header-side">
-        <span class="fas fa-comments"></span>
-        {{ 'document.view.comments' | translate }}
-      </p>
-
-      <div ng-show="!comments || comments.length == 0" class="text-center text-muted">
-        <h1 class="fas fa-comments"></h1>
-        <p ng-show="!comments && !commentsError">{{ 'loading' | translate }}</p>
-        <p ng-show="comments.length == 0">{{ 'document.view.no_comments' | translate }}</p>
-        <p ng-show="!comments && commentsError">{{ 'document.view.error_loading_comments' | translate }}</p>
-      </div>
-
-      <div ng-repeat="comment in comments" class="media" style="overflow: hidden">
-        <div class="pull-left">
-          <img ng-src="https://www.gravatar.com/avatar/{{ comment.creator_gravatar }}?s=40&d=identicon" class="media-object" />
-        </div>
-        <div class="media-body">
-          <strong>{{ comment.creator }}</strong>
+      
+      <div class="card">
+        <p class="page-header page-header-side">
+          <span class="fas fa-comments"></span>
+          {{ 'Applicant Rating' | translate }}
+        </p>
+        <form id="ratingform" #ratingForm = "ngForm"  ng-submit = "submitRatings(ratingForm.value)">
           <p>
-            {{ comment.content }}<br />
-            <span class="text-muted">{{ comment.create_date | timeAgo: dateTimeFormat }}</span>
-          <span class="text-muted pull-right btn-link pointer"
-                ng-show="document.writable || userInfo.username == comment.creator"
-                ng-click="deleteComment(comment)">
-            <span class="fas fa-times"></span>
-          </span>
+            <label for="skills">Skills:</label>
+            <input type="number" id="skills" ng-model="skills" min="1" max="5" >
           </p>
-        </div>
+          <p>
+            <label for="exp">Experience:</label>
+            <input type="number" id="exp" ng-model="exp" min="1" max="5" >
+          </p>
+          <p>
+            <label for="gpa">GPA:</label>
+            <input type="number" id="gpa" ng-model="gpa" min="1" max="5">
+          </p>
+          <p>
+            <label for="scores">Test Scores:</label>
+            <input type="number" id="scores" ng-model="scores" min="1" max="5">
+          </p>
+          <input type="submit">
+        </form>
       </div>
 
-      <form ng-submit="addComment()">
-        <div class="form-group">
-          <label class="sr-only" for="commentInput">{{ 'document.view.add_comment' | translate }}</label>
-          <input type="text" class="form-control" id="commentInput" ng-model="comment" ng-attr-placeholder="{{ 'document.view.add_comment' | translate }}">
+      <div class = "card">
+        <p class="page-header page-header-side">
+        <span class="fas fa-star"></span>
+        {{ 'Average Rating: ' | translate }}
+        {{(skills + exp + gpa + scores)/4}}
+      </p>
+      </div>
+      
+      <div class="card">
+        <p class="page-header page-header-side">
+          <span class="fas fa-comments"></span>
+          {{ 'document.view.comments' | translate }}
+        </p>
+        
+        <div ng-show="!comments || comments.length == 0" class="text-center text-muted">
+          <h1 class="fas fa-comments"></h1>
+          <p ng-show="!comments && !commentsError">{{ 'loading' | translate }}</p>
+          <p ng-show="comments.length == 0">{{ 'document.view.no_comments' | translate }}</p>
+          <p ng-show="!comments && commentsError">{{ 'document.view.error_loading_comments' | translate }}</p>
         </div>
-      </form>
+
+        <div ng-repeat="comment in comments" class="media" style="overflow: hidden">
+          <div class="pull-left">
+            <img ng-src="https://www.gravatar.com/avatar/{{ comment.creator_gravatar }}?s=40&d=identicon" class="media-object" />
+          </div>
+          <div class="media-body">
+            <strong>{{ comment.creator }}</strong>
+            <p>
+              {{ comment.content }}<br />
+              <span class="text-muted">{{ comment.create_date | timeAgo: dateTimeFormat }}</span>
+            <span class="text-muted pull-right btn-link pointer"
+                  ng-show="document.writable || userInfo.username == comment.creator"
+                  ng-click="deleteComment(comment)">
+              <span class="fas fa-times"></span>
+            </span>
+            </p>
+          </div>
+        </div>
+
+        <form ng-submit="addComment()">
+          <div class="form-group">
+            <label class="sr-only" for="commentInput">{{ 'document.view.add_comment' | translate }}</label>
+            <input type="text" class="form-control" id="commentInput" ng-model="comment" ng-attr-placeholder="{{ 'document.view.add_comment' | translate }}">
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

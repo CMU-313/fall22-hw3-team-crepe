@@ -87,7 +87,7 @@ public class DocumentDao {
         }
 
         EntityManager em = ThreadLocalContext.get().getEntityManager();
-        StringBuilder sb = new StringBuilder("select distinct d.DOC_ID_C, d.DOC_TITLE_C, d.DOC_DESCRIPTION_C, d.DOC_SUBJECT_C, d.DOC_IDENTIFIER_C, d.DOC_PUBLISHER_C, d.DOC_FORMAT_C, d.DOC_SOURCE_C, d.DOC_TYPE_C, d.DOC_COVERAGE_C, d.DOC_RIGHTS_C, d.DOC_CREATEDATE_D, d.DOC_UPDATEDATE_D, d.DOC_LANGUAGE_C, ");
+        StringBuilder sb = new StringBuilder("select distinct d.DOC_ID_C, d.DOC_TITLE_C, d.DOC_SKILLS_C, d.DOC_EXPERIENCE_C, d.DOC_GPA_C, d.DOC_SCORES_C, d.DOC_DESCRIPTION_C, d.DOC_SUBJECT_C, d.DOC_IDENTIFIER_C, d.DOC_PUBLISHER_C, d.DOC_FORMAT_C, d.DOC_SOURCE_C, d.DOC_TYPE_C, d.DOC_COVERAGE_C, d.DOC_RIGHTS_C, d.DOC_CREATEDATE_D, d.DOC_UPDATEDATE_D, d.DOC_LANGUAGE_C, ");
         sb.append(" (select count(s.SHA_ID_C) from T_SHARE s, T_ACL ac where ac.ACL_SOURCEID_C = d.DOC_ID_C and ac.ACL_TARGETID_C = s.SHA_ID_C and ac.ACL_DELETEDATE_D is null and s.SHA_DELETEDATE_D is null) shareCount, ");
         sb.append(" (select count(f.FIL_ID_C) from T_FILE f where f.FIL_DELETEDATE_D is null and f.FIL_IDDOC_C = d.DOC_ID_C) fileCount, ");
         sb.append(" u.USE_USERNAME_C ");
@@ -109,6 +109,10 @@ public class DocumentDao {
         int i = 0;
         documentDto.setId((String) o[i++]);
         documentDto.setTitle((String) o[i++]);
+        documentDto.setSkills((int) o[i++]);
+        documentDto.setExperience((int) o[i++]);
+        documentDto.setGpa((int) o[i++]);
+        documentDto.setScores((int) o[i++]);
         documentDto.setDescription((String) o[i++]);
         documentDto.setSubject((String) o[i++]);
         documentDto.setIdentifier((String) o[i++]);
@@ -204,6 +208,10 @@ public class DocumentDao {
 
         // Update the document
         documentDb.setTitle(document.getTitle());
+        documentDb.setSkills(document.getSkills());
+        documentDb.setExperience(document.getExperience());
+        documentDb.setGpa(document.getGpa());
+        documentDb.setScores(document.getScores());
         documentDb.setDescription(document.getDescription());
         documentDb.setSubject(document.getSubject());
         documentDb.setIdentifier(document.getIdentifier());
