@@ -10,6 +10,10 @@ Teedy is an open source, lightweight document management system for individuals 
 
 ![New!](https://teedy.io/img/laptop-demo.png?20180301)
 
+# New feature!
+
+Users now can rate documents. Just open up a document view, and on the right, there will be text boxes for skills, experience, GPA, and score for the applicant. Enter your rating and press submit, and the rating will be saved to the document. You can also see the average rating below the text boxes.
+
 # Features
 
 - Responsive user interface
