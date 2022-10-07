@@ -139,19 +139,19 @@
         <form id="ratingform" #ratingForm = "ngForm"  ng-submit = "submitRatings(ratingForm.value)">
           <p>
             <label for="skills">Skills:</label>
-            <input type="number" id="skills" name="skills" min="1" max="5" ngModel>
+            <input type="number" id="skills" ng-model="skills" min="1" max="5" >
           </p>
           <p>
             <label for="exp">Experience:</label>
-            <input type="number" id="exp" name="exp" min="1" max="5" ngModel>
+            <input type="number" id="exp" ng-model="exp" min="1" max="5" >
           </p>
           <p>
             <label for="gpa">GPA:</label>
-            <input type="number" id="gpa" name="gpa" min="1" max="5" ngModel>
+            <input type="number" id="gpa" ng-model="gpa" min="1" max="5">
           </p>
           <p>
             <label for="scores">Test Scores:</label>
-            <input type="number" id="scores" name="scores" min="1" max="5" ngModel>
+            <input type="number" id="scores" ng-model="scores" min="1" max="5">
           </p>
           <input type="submit">
         </form>

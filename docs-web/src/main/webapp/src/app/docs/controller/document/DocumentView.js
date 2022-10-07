@@ -17,13 +17,13 @@ angular.module('docs').controller('DocumentView', function ($scope, $rootScope, 
     $scope.exp = ratings.experience;
     $scope.gpa = ratings.gpa;
     $scope.scores = ratings.scores;
+    console.log(ratings.skills);
   }, function(response){
     $scope.ratingsError = response;
   });
   
   // Submit ratings
   $scope.submitRatings = function () {
-    console.log("called submit ratings");
     Restangular.one('document/' + $scope.document.id + "/ratings").post('', {
       id: $scope.document.id, 
       skills: $scope.skills,
