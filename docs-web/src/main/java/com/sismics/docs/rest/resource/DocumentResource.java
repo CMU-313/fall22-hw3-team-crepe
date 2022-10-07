@@ -177,7 +177,7 @@ public class DocumentResource extends BaseResource {
                 .add("experience", documentDto.getExperience())
                 .add("gpa", documentDto.getGpa())
                 .add("scores", documentDto.getScores())
-                .add("skills", documentDto.getScores());
+                .add("skills", documentDto.getSkills());
 
         List<TagDto> tagDtoList = null;
         if (principal.isAnonymous()) {
