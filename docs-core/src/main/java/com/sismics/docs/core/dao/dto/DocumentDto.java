@@ -1,7 +1,5 @@
 package com.sismics.docs.core.dao.dto;
 
-import javax.json.JsonValue;
-
 /**
  * Document DTO.
  *
@@ -282,26 +280,5 @@ public class DocumentDto {
     public DocumentDto setHighlight(String highlight) {
         this.highlight = highlight;
         return this;
-    }
-
-    public JsonValue getExperience() {
-        return null;
-    }
-
-    public JsonValue getGpa() {
-        return null;
-    }
-
-    public JsonValue getScores() {
-        return null;
-    }
-
-    public void setExperience(int o) {
-    }
-
-    public void setGpa(int o) {
-    }
-
-    public void setScores(int o) {
     }
 }
