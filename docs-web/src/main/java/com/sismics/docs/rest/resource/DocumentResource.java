@@ -476,7 +476,7 @@ public class DocumentResource extends BaseResource {
                     .add("experience", documentDto.getExperience())
                     .add("gpa", documentDto.getGpa())
                     .add("scores", documentDto.getScores())
-                    .add("skills", docuemntDto.getSkills());
+                    .add("skills", documentDto.getSkills());
             if (Boolean.TRUE == files) {
                 JsonArrayBuilder filesArrayBuilder = Json.createArrayBuilder();
                 // Find files matching the document
