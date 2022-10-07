@@ -176,7 +176,8 @@ public class DocumentResource extends BaseResource {
                 .add("file_count", documentDto.getFileCount())
                 .add("experience", documentDto.getExperience())
                 .add("gpa", documentDto.getGpa())
-                .add("scores", documentDto.getScores());
+                .add("scores", documentDto.getScores())
+                .add("skills", documentDto.getScores());
 
         List<TagDto> tagDtoList = null;
         if (principal.isAnonymous()) {
@@ -474,7 +475,8 @@ public class DocumentResource extends BaseResource {
                     .add("tags", tags)
                     .add("experience", documentDto.getExperience())
                     .add("gpa", documentDto.getGpa())
-                    .add("scores", documentDto.getScores());
+                    .add("scores", documentDto.getScores())
+                    .add("skills", docuemntDto.getSkills());
             if (Boolean.TRUE == files) {
                 JsonArrayBuilder filesArrayBuilder = Json.createArrayBuilder();
                 // Find files matching the document
@@ -785,6 +787,7 @@ public class DocumentResource extends BaseResource {
         document.setExperience(0);
         document.setGpa(0);
         document.setScores(0);
+        document.setSkills(0);
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
